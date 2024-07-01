@@ -1,0 +1,111 @@
+version: '3'
+
+env:
+  COREUTILS_VERSION: '9.4'
+  BASH_VERSION: '5'
+  OPENSSH_VERSION: '9.7'
+  ANSIBLE_VERSION: '2.16'
+  PROVISIONER_REPO_PATH: '{{.TASKFILE_DIR}}'
+  PROJECT_REPO_PATH: '{{.ROOT_DIR}}'
+  ANSIBLE_INVENTORY_SCRIPT_PATH: '{{.PROVISIONER_REPO_PATH}}/inventory-ansible.pkgx'
+  ANSIBLE_PLAYBOOKS_PATH: '{{.PROVISIONER_REPO_PATH}}/playbooks'
+  ANSIBLE_ROLES_PATH: '{{.PROVISIONER_REPO_PATH}}/roles'
+  ANSIBLE_DEBUG: 0
+
+tasks:
+  default:
+    silent: true
+    cmds:
+    - task --list
+
+  init:
+    cmds:
+      - |
+        pkgx +ansible.com^{{.ANSIBLE_VERSION}} ansible-galaxy \
+             collection install community.general
+
+  with-clean-env:
+    internal: true
+    cmds:
+    - |
+      
+      pkgx +gnu.org/coreutils^{{.COREUTILS_VERSION}} env \
+           --split-string \
+           --ignore-environment \
+           REMOTE_FQDN="{{.REMOTE_FQDN}}" \
+           REMOTE_USER="{{.REMOTE_USER}}" \
+           USER="{{.USER}}" \
+           HOME="{{.HOME}}" \
+           PATH="{{.HOME}}/.pkgx/bin:/bin:/usr/bin:/usr/local/bin" \
+           PROJECT_REPO_PATH='{{.PROJECT_REPO_PATH}}' \
+           pkgx +gnu.org/bash^{{.BASH_VERSION}} bash \
+                --login \
+                --noprofile \
+                --norc \
+                - <<'EOF'
+                {{- range $line := splitList "\n" .COMMAND_SCRIPT}}
+                {{$line -}}
+                {{- end}}
+      EOF
+
+  install:
+    desc: prepare instance with Ansible playbooks
+    vars:
+      ANSIBLE_TAGS: 'install'
+      CONSTRUCTOR_SSH_KEY_PATH:
+        sh: |
+          pkgx +taskfile.dev^{{.TASK_VERSION}} task \
+               --silent \
+               --taskfile '{{.PROJECT_REPO_PATH}}/Taskfile.yml' \
+               constructor:get_ssh_key_path
+      COMMAND_SCRIPT: |
+        set -a
+        ANSIBLE_ROLES_PATH="{{.ANSIBLE_ROLES_PATH}}"
+        ANSIBLE_HOST_KEY_CHECKING=false
+        ANSIBLE_DEBUG="{{.ANSIBLE_DEBUG}}"
+        set +a
+
+        eval "$(pkgx +openssh.com^{{.OPENSSH_VERSION}} ssh-agent)" 2>&1 > /dev/null
+        pkgx +openssh.com^{{.OPENSSH_VERSION}} \
+             ssh-add -q "{{.CONSTRUCTOR_SSH_KEY_PATH}}" 2>&1 > /dev/null
+        pkgx +ansible.com^{{.ANSIBLE_VERSION}} \
+             ansible-playbook \
+                 --inventory '{{.ANSIBLE_INVENTORY_SCRIPT_PATH}}' \
+                 '{{.ANSIBLE_PLAYBOOKS_PATH}}/main.yaml'
+        pkgx +openssh.com^{{.OPENSSH_VERSION}} \
+             ssh-agent -k 2>&1 > /dev/null
+    cmds:
+    - task: with-clean-env
+      vars:
+        COMMAND_SCRIPT: '{{.COMMAND_SCRIPT}}'
+
+  tests:
+    desc: run tests
+    vars:
+      ANSIBLE_TAGS: tests
+      CONSTRUCTOR_SSH_KEY_PATH:
+        sh: |
+          pkgx +taskfile.dev^{{.TASK_VERSION}} task \
+               --silent \
+               --taskfile '{{.PROJECT_REPO_PATH}}/Taskfile.yml' \
+               constructor:get_ssh_key_path
+      COMMAND_SCRIPT: |
+        set -a
+        ANSIBLE_ROLES_PATH="{{.ANSIBLE_ROLES_PATH}}"
+        ANSIBLE_HOST_KEY_CHECKING=false
+        ANSIBLE_DEBUG="{{.ANSIBLE_DEBUG}}"
+        set +a
+
+        eval "$(pkgx +openssh.com^{{.OPENSSH_VERSION}} ssh-agent)" 2>&1 > /dev/null
+        pkgx +openssh.com^{{.OPENSSH_VERSION}} \
+             ssh-add -q "{{.CONSTRUCTOR_SSH_KEY_PATH}}" 2>&1 > /dev/null
+        pkgx +ansible.com^{{.ANSIBLE_VERSION}} \
+             ansible-playbook \
+                 --inventory '{{.ANSIBLE_INVENTORY_SCRIPT_PATH}}' \
+                 '{{.ANSIBLE_PLAYBOOKS_PATH}}/main.yaml'
+        pkgx +openssh.com^{{.OPENSSH_VERSION}} \
+             ssh-agent -k 2>&1 > /dev/null        
+    cmds:
+    - task: with-clean-env
+      vars:
+        COMMAND_SCRIPT: '{{.COMMAND_SCRIPT}}'

@@ -1,0 +1,6 @@
+- name: Install pkgx
+  ansible.builtin.shell: |
+    command -v pkgx || (
+        curl -Ssf https://pkgx.sh/$(uname)/$(uname -m).tgz \
+      | sudo tar xz -C /usr/local/bin
+    )
