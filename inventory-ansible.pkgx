@@ -27,7 +27,7 @@ function main {
   local -r script_path="$(realpath "${BASH_SOURCE[0]}")"
   local -r script_dir_path="$(dirname "${script_path}")"
   local -r parent_script_dir_path="$(dirname "${script_dir_path}")"
-  local -r temp_dir_path="${script_dir_path}/temp"
+  local -r temp_dir_path="${parent_script_dir_path}/temp"
   local -r inventory_file_name='inventory.json'
   local -r inventory_file_path="${temp_dir_path}/${inventory_file_name}"
   mkdir -p "${temp_dir_path}"
