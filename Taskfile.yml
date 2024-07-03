@@ -23,6 +23,7 @@ tasks:
       - |
         pkgx +ansible.com^{{.ANSIBLE_VERSION}} ansible-galaxy \
              collection install community.general
+        pkgx git clone https://github.com/actions/
 
   with-clean-env:
     internal: true
