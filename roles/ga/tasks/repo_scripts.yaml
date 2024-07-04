@@ -1,2 +1,4 @@
 - name: Install clang
   ansible.builtin.shell:  /tmp/VCS/github.com/actions/runner-images/images/ubuntu/scripts/build/install-clang.sh
+  args:
+    executable: /bin/sh
