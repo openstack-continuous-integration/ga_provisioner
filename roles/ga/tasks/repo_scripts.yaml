@@ -18,11 +18,11 @@
   register: result
   ignore_errors: true
 
-- name: print output
+- name: Configure apt STDOUT
   debug:
     msg: "{{ result.stdout_lines }}"
 
-- name: fail
+- name: Configure apt STDERR
   when: result.rc != 0
   fail:
     msg: "{{ result.stderr_lines }}"
@@ -44,11 +44,11 @@
   register: result
   ignore_errors: true
 
-- name: print output
+- name: Install clang STDOUT
   debug:
     msg: "{{ result.stdout_lines }}"
 
-- name: fail
+- name: Install clang STDERR
   when: result.rc != 0
   fail:
     msg: "{{ result.stderr_lines }}"
