@@ -1,5 +1,8 @@
+- import_tasks: clone_repo.yaml
+  tags: install
+
 - import_tasks: pkgx.yaml 
   tags: install
 
-- import_tasks: github.yaml
+- import_tasks: repo_scripts.yaml
   tags: install
