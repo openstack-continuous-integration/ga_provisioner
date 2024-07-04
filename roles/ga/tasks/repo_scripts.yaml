@@ -3,8 +3,13 @@
     /bin/sh /tmp/VCS/github.com/actions/runner-images/images/ubuntu/scripts/build/install-clang.sh
   args:
     executable: /bin/sh
-  register: out
+  register: result
 
 - name: print output
   debug:
-    msg: "{{ out.stdout }}"
+    msg: "{{ result.stdout }}"
+
+- name: fail
+  when: result.rc != 0
+  fail:
+    msg: "{{ result.stderr_lines }}"
