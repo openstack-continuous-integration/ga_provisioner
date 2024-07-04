@@ -1,4 +1,4 @@
-- name: Clone github.com/actions/runner-images
+- name: Clone https://github.com/actions/runner-images
   ansible.builtin.git:
     repo: 'https://github.com/actions/runner-images.git'
     dest: '/tmp/VCS/github.com/actions/runner-images'
