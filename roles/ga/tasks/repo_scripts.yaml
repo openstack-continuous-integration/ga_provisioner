@@ -1,9 +1,19 @@
 - name: Install clang
   ansible.builtin.shell: |
     set -a
-    #HELPER_SCRIPTS=
+    REPO_PATH="/tmp/VCS/github.com/actions/runner-images"
+    BUILD_SCRIPTS_PATH="${REPO_PATH}/images/ubuntu/scripts/build"
+    HELPER_SCRIPTS="${REPO_PATH}/images/ubuntu/scripts/helpers"
+    DEBIAN_FRONTEND='noninteractive'
     set +a
-    /bin/sh /tmp/VCS/github.com/actions/runner-images/images/ubuntu/scripts/build/install-clang.sh
+    
+    /bin/sh "${BUILD_SCRIPTS_PATH}/configure-apt-mock.sh"
+    /bin/sh "${BUILD_SCRIPTS_PATH}/install-ms-repos.sh"
+    /bin/sh "${BUILD_SCRIPTS_PATH}/configure-apt-sources.sh"
+    /bin/sh "${BUILD_SCRIPTS_PATH}/configure-apt.sh"
+    /bin/sh "${BUILD_SCRIPTS_PATH}/configure-limits.sh"
+    #/bin/sh "${BUILD_SCRIPTS_PATH}/
+    /bin/sh "${BUILD_SCRIPTS_PATH}/install-clang.sh"
   args:
     executable: /bin/sh
   register: result
