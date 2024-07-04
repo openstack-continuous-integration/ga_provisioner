@@ -1,3 +1,31 @@
+- name: Configure apt
+  ansible.builtin.shell: |
+    set -a
+    REPO_PATH="/tmp/VCS/github.com/actions/runner-images"
+    BUILD_SCRIPTS_PATH="${REPO_PATH}/images/ubuntu/scripts/build"
+    HELPER_SCRIPTS="${REPO_PATH}/images/ubuntu/scripts/helpers"
+    DEBIAN_FRONTEND='noninteractive'
+    set +a
+
+    /bin/sh "${BUILD_SCRIPTS_PATH}/configure-apt-mock.sh"
+    /bin/sh "${BUILD_SCRIPTS_PATH}/install-ms-repos.sh"
+    /bin/sh "${BUILD_SCRIPTS_PATH}/configure-apt-sources.sh"
+    /bin/sh "${BUILD_SCRIPTS_PATH}/configure-apt.sh"
+  
+  args:
+    executable: /bin/sh
+  register: result
+  ignore_errors: true
+
+- name: print output
+  debug:
+    msg: "{{ result.stdout }}"
+
+- name: fail
+  when: result.rc != 0
+  fail:
+    msg: "{{ result.stderr_lines }}"
+
 - name: Install clang
   ansible.builtin.shell: |
     set -a
@@ -7,10 +35,6 @@
     DEBIAN_FRONTEND='noninteractive'
     set +a
     
-    /bin/sh "${BUILD_SCRIPTS_PATH}/configure-apt-mock.sh"
-    /bin/sh "${BUILD_SCRIPTS_PATH}/install-ms-repos.sh"
-    /bin/sh "${BUILD_SCRIPTS_PATH}/configure-apt-sources.sh"
-    /bin/sh "${BUILD_SCRIPTS_PATH}/configure-apt.sh"
     /bin/sh "${BUILD_SCRIPTS_PATH}/configure-limits.sh"
     #/bin/sh "${BUILD_SCRIPTS_PATH}/"
     /bin/sh "${BUILD_SCRIPTS_PATH}/install-clang.sh"
