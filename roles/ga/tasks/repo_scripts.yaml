@@ -12,7 +12,7 @@
     /bin/sh "${BUILD_SCRIPTS_PATH}/configure-apt-sources.sh"
     /bin/sh "${BUILD_SCRIPTS_PATH}/configure-apt.sh"
     /bin/sh "${BUILD_SCRIPTS_PATH}/configure-limits.sh"
-    #/bin/sh "${BUILD_SCRIPTS_PATH}/
+    #/bin/sh "${BUILD_SCRIPTS_PATH}/"
     /bin/sh "${BUILD_SCRIPTS_PATH}/install-clang.sh"
   args:
     executable: /bin/sh
