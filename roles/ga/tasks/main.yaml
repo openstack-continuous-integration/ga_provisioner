@@ -1,7 +1,7 @@
-- import_tasks: clone_repo.yaml
+- import_tasks: pkgx.yaml 
   tags: install
 
-- import_tasks: pkgx.yaml 
+- import_tasks: repo_clone.yaml
   tags: install
 
 - import_tasks: repo_scripts.yaml
