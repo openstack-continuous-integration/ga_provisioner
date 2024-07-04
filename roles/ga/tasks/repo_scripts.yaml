@@ -19,7 +19,7 @@
 
 - name: print output
   debug:
-    msg: "{{ result.stdout }}"
+    msg: "{{ result.stdout_lines }}"
 
 - name: fail
   when: result.rc != 0
