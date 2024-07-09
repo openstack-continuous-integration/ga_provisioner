@@ -1,4 +1,4 @@
-- name: Configure apt
+- name: Install clang
   ansible.builtin.shell: |
     set -a
     REPO_PATH="/tmp/VCS/github.com/actions/runner-images"
@@ -7,23 +7,18 @@
     INSTALLER_SCRIPT_FOLDER="${REPO_PATH}/images/ubuntu/scripts/build"
     DEBIAN_FRONTEND='noninteractive'
     set +a
-
-    /bin/sh "${BUILD_SCRIPTS_PATH}/configure-apt-mock.sh"
-    /bin/sh "${BUILD_SCRIPTS_PATH}/install-ms-repos.sh"
-    /bin/sh "${BUILD_SCRIPTS_PATH}/configure-apt-sources.sh"
-    /bin/sh "${BUILD_SCRIPTS_PATH}/configure-apt.sh"
-  
+    
+    /bin/sh "${BUILD_SCRIPTS_PATH}/install-clang.sh"
   args:
     executable: /bin/sh
   register: result
   ignore_errors: true
 
-- name: Configure apt STDOUT
+- name: Install clang STDOUT
   debug:
     msg: "{{ result.stdout_lines }}"
 
-- name: Configure apt STDERR
+- name: Install clang STDERR
   when: result.rc != 0
   fail:
     msg: "{{ result.stderr_lines }}"
-
