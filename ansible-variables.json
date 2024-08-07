@@ -1,3 +1,5 @@
 {
+    "IMAGE_VERSION": "dev",
     "IMAGE_FOLDER": "/imagegeneration",
+    "IMAGEDATA_FILE": "/imagegeneration/imagedata.json"
 }
