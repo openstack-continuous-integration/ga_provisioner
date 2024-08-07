@@ -7,6 +7,7 @@
     INSTALLER_SCRIPT_FOLDER="${REPO_PATH}/images/ubuntu/scripts/build"
     DEBIAN_FRONTEND='noninteractive'
     set +a
+    echo $IMAGEDATA_FILE
     set -x
     /bin/bash "${BUILD_SCRIPTS_PATH}/configure-image-data.sh"
   args:
