@@ -28,5 +28,9 @@
 - import_tasks: install_git.yaml
   tags: install
 
+- import_tasks: install_docker.yaml
+  tags: install
+
 - import_tasks: pkgx.yaml 
   tags: install
+

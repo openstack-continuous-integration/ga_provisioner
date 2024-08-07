@@ -1,4 +1,4 @@
-- name: Configure image data
+- name: install-docker.sh
   ansible.builtin.shell: |
     set -a
     REPO_PATH="/tmp/VCS/github.com/actions/runner-images"
@@ -7,27 +7,19 @@
     INSTALLER_SCRIPT_FOLDER="${REPO_PATH}/images/ubuntu/scripts/build"
     DEBIAN_FRONTEND='noninteractive'
     set +a
-    set -x
-    /bin/bash "${BUILD_SCRIPTS_PATH}/configure-image-data.sh"
+
+    /bin/sh "${BUILD_SCRIPTS_PATH}/install-docker.sh"
   args:
-    executable: /bin/bash
+    executable: /bin/sh
   register: result
   ignore_errors: true
 
-- name: Configure image data STDOUT
-  ansible.builtin.debug:
+- name: install-docker.sh STDOUT
+  debug:
     msg: "{{ result.stdout_lines }}"
 
-- name: Configure image data STDERR
+- name: install-docker.sh STDERR
   when: result.rc != 0
-  ansible.builtin.fail:
+  fail:
     msg: "{{ result.stderr_lines }}"
 
-- name: Retrieve IMAGEDATA_FILE
-  ansible.builtin.slurp:
-    src: "{{ IMAGEDATA_FILE }}"
-  register: imagedata
-
-- name: Display IMAGEDATA_FILE
-  ansible.builtin.debug:
-    msg: "{{ imagedata }}"
