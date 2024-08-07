@@ -8,9 +8,9 @@
     DEBIAN_FRONTEND='noninteractive'
     set +a
     
-    /bin/sh ${BUILD_SCRIPTS_PATH}/configure-image-data.sh
+    /bin/bash ${BUILD_SCRIPTS_PATH}/configure-image-data.sh
   args:
-    executable: /bin/sh
+    executable: /bin/bash
   register: result
   ignore_errors: true
 
