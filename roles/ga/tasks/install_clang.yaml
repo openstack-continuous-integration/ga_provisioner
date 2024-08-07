@@ -8,7 +8,7 @@
     DEBIAN_FRONTEND='noninteractive'
     set +a
     
-    /bin/sh "${BUILD_SCRIPTS_PATH}/install-clang.sh"
+    /bin/bash -e "${BUILD_SCRIPTS_PATH}/install-clang.sh"
   args:
     executable: /bin/sh
   register: result

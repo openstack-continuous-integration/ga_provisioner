@@ -1,4 +1,4 @@
-- name: Configure environment
+- name: configure-environment.sh
   ansible.builtin.shell: |
     set -a
     REPO_PATH="/tmp/VCS/github.com/actions/runner-images"
@@ -14,11 +14,11 @@
   register: result
   ignore_errors: true
 
-- name: Configure environment STDOUT
+- name: configure-environment.sh STDOUT
   debug:
     msg: "{{ result.stdout_lines }}"
 
-- name: Configure environment STDERR
+- name: configure-environment.sh STDERR
   when: result.rc != 0
   fail:
     msg: "{{ result.stderr_lines }}"
