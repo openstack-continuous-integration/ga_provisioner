@@ -10,9 +10,9 @@
     IMAGEDATA_FILE='/imagegeneration/imagedata.json'
     set +a
     
-    /bin/sh "${BUILD_SCRIPTS_PATH}/configure-image-data.sh"
+    ${BUILD_SCRIPTS_PATH}/configure-image-data.sh
   args:
-    executable: /bin/sh
+    executable: /bin/bash
   register: result
   ignore_errors: true
 
