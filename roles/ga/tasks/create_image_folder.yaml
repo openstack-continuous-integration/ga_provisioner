@@ -1,5 +1,0 @@
-- name: Create image folder
-  ansible.builtin.file:
-    path: '{{ IMAGE_FOLDER }}'
-    state: directory
-    mode: '0777'

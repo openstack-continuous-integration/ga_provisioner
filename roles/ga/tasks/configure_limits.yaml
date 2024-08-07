@@ -1,4 +1,4 @@
-- name: Configure limits
+- name: configure-limits.sh
   ansible.builtin.shell: |
     set -a
     REPO_PATH="/tmp/VCS/github.com/actions/runner-images"
@@ -14,11 +14,11 @@
   register: result
   ignore_errors: true
 
-- name: Configure limits STDOUT
+- name: configure-limits.sh STDOUT
   debug:
     msg: "{{ result.stdout_lines }}"
 
-- name: Configure limits STDERR
+- name: configure-limits.sh STDERR
   when: result.rc != 0
   fail:
     msg: "{{ result.stderr_lines }}"

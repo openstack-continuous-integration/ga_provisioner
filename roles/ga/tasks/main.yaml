@@ -7,6 +7,9 @@
 - import_tasks: repo_scripts.yaml
   tags: install
 
+- import_tasks: install_toolset_config.yaml
+  tags: install
+
 - import_tasks: configure_image_data.yaml
   tags: install
 

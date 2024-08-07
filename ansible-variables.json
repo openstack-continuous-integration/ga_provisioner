@@ -1,5 +1,7 @@
 {
+    "REPO_PATH": "/tmp/VCS/github.com/actions/runner-images",
     "IMAGE_VERSION": "dev",
     "IMAGE_FOLDER": "/imagegeneration",
-    "IMAGEDATA_FILE": "/imagegeneration/imagedata.json"
+    "IMAGEDATA_FILE": "/imagegeneration/imagedata.json",
+    "INSTALLER_SCRIPT_FOLDER": "/imagegeneration/installers"
 }
