@@ -13,6 +13,9 @@
 - import_tasks: configure_environment.yaml
   tags: install
 
+- import_tasks: install_apt_vital.yaml
+  tags: install
+
 - import_tasks: configure_limits.yaml
   tags: install
 
