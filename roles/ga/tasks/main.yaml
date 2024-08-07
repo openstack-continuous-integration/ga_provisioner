@@ -7,6 +7,12 @@
 - import_tasks: repo_scripts.yaml
   tags: install
 
+- import_tasks: configure_image_data.yaml
+  tags: install
+
+- import_tasks: configure_environment.yaml
+  tags: install
+
 - import_tasks: configure_limits.yaml
   tags: install
 

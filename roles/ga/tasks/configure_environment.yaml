@@ -1,0 +1,24 @@
+- name: Configure environment
+  ansible.builtin.shell: |
+    set -a
+    REPO_PATH="/tmp/VCS/github.com/actions/runner-images"
+    BUILD_SCRIPTS_PATH="${REPO_PATH}/images/ubuntu/scripts/build"
+    HELPER_SCRIPTS="${REPO_PATH}/images/ubuntu/scripts/helpers"
+    INSTALLER_SCRIPT_FOLDER="${REPO_PATH}/images/ubuntu/scripts/build"
+    DEBIAN_FRONTEND='noninteractive'
+    set +a
+    
+    /bin/sh "${BUILD_SCRIPT_PATH}/configure-environment.sh"
+  args:
+    executable: /bin/sh
+  register: result
+  ignore_errors: true
+
+- name: Configure environment STDOUT
+  debug:
+    msg: "{{ result.stdout_lines }}"
+
+- name: Configure environment STDERR
+  when: result.rc != 0
+  fail:
+    msg: "{{ result.stderr_lines }}"
