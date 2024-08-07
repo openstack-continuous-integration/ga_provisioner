@@ -1,0 +1,24 @@
+- name: Install yq
+  ansible.builtin.shell: |
+    set -a
+    REPO_PATH="/tmp/VCS/github.com/actions/runner-images"
+    BUILD_SCRIPTS_PATH="${REPO_PATH}/images/ubuntu/scripts/build"
+    HELPER_SCRIPTS="${REPO_PATH}/images/ubuntu/scripts/helpers"
+    INSTALLER_SCRIPT_FOLDER="${REPO_PATH}/images/ubuntu/scripts/build"
+    DEBIAN_FRONTEND='noninteractive'
+    set +a
+
+    /bin/sh "${BUILD_SCRIPTS_PATH}install-yq.sh"
+  args:
+    executable: /bin/sh
+  register: result
+  ignore_errors: true
+
+- name: Install yq STDOUT
+  debug:
+    msg: "{{ result.stdout_lines }}"
+
+- name: Install yq STDERR
+  when: result.rc != 0
+  fail:
+    msg: "{{ result.stderr_lines }}"

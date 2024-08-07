@@ -12,3 +12,9 @@
 
 - import_tasks: install_clang.yaml
   tags: install
+
+- import_tasks: install_ruby.yaml
+  tags: install
+
+- import_tasks: install_git.yaml
+  tags: install
