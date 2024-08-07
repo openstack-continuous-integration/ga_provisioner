@@ -9,17 +9,25 @@
     set +a
     
     /bin/bash -e ${BUILD_SCRIPTS_PATH}/configure-image-data.sh
-    cat {{IMAGEDATA_FILE}}
   args:
     executable: /bin/bash
   register: result
   ignore_errors: true
 
 - name: Configure image data STDOUT
-  debug:
+  ansible.builtin.debug:
     msg: "{{ result.stdout_lines }}"
 
 - name: Configure image data STDERR
   when: result.rc != 0
-  fail:
+  ansible.builtin.fail:
     msg: "{{ result.stderr_lines }}"
+
+- name: Retrieve IMAGEDATA_FILE
+  ansible.builtin.slurp:
+    src: "{{ IMAGEDATA_FILE }}"
+  register: imagedata
+
+- name: Display IMAGEDATA_FILE
+  ansible.builtin.debug:
+    msg: "{{ imagedata}}"
