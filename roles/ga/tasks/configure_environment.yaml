@@ -8,7 +8,7 @@
     DEBIAN_FRONTEND='noninteractive'
     set +a
     
-    /bin/sh "${BUILD_SCRIPT_PATH}/configure-environment.sh"
+    /bin/sh "${BUILD_SCRIPTS_PATH}/configure-environment.sh"
   args:
     executable: /bin/sh
   register: result
