@@ -5,11 +5,11 @@
     BUILD_SCRIPTS_PATH="${REPO_PATH}/images/ubuntu/scripts/build"
     HELPER_SCRIPTS="${REPO_PATH}/images/ubuntu/scripts/helpers"
     INSTALLER_SCRIPT_FOLDER="${REPO_PATH}/images/ubuntu/scripts/build"
+    IMAGE_VERSION={{IMAGE_VERSION}}
+    IMAGEDATA_FILE={{IMAGEDATA_FILE}}
     DEBIAN_FRONTEND='noninteractive'
     set +a
-    echo $IMAGEDATA_FILE
-    set -x
-    /bin/bash "${BUILD_SCRIPTS_PATH}/configure-image-data.sh"
+    /bin/bash  "${BUILD_SCRIPTS_PATH}/configure-image-data.sh"
   args:
     executable: /bin/bash
   register: result
