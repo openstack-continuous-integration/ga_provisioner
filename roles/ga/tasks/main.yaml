@@ -1,3 +1,6 @@
+- import_tasks: create_image_folder
+  tags: install
+
 - import_tasks: pkgx.yaml 
   tags: install
 

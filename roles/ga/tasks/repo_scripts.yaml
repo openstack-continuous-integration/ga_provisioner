@@ -8,6 +8,7 @@
     DEBIAN_FRONTEND='noninteractive'
     set +a
 
+    
     /bin/sh "${BUILD_SCRIPTS_PATH}/configure-apt-mock.sh"
     /bin/sh "${BUILD_SCRIPTS_PATH}/install-ms-repos.sh"
     /bin/sh "${BUILD_SCRIPTS_PATH}/configure-apt-sources.sh"

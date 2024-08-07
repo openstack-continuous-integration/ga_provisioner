@@ -7,7 +7,8 @@ env:
   ANSIBLE_VERSION: '2.16'
   PROVISIONER_REPO_PATH: '{{.TASKFILE_DIR}}'
   PROJECT_REPO_PATH: '{{.ROOT_DIR}}'
-  ANSIBLE_INVENTORY_SCRIPT_PATH: '{{.PROVISIONER_REPO_PATH}}/inventory-ansible.pkgx'
+  ANSIBLE_INVENTORY_SCRIPT_PATH: '{{.PROVISIONER_REPO_PATH}}/ansible-inventory.pkgx'
+  ANSIBLE_VARIABLES_FILE_PATH: '@{{.PROVISIONER_REPO_PATH}}/ansible-variables.json'
   ANSIBLE_PLAYBOOKS_PATH: '{{.PROVISIONER_REPO_PATH}}/playbooks'
   ANSIBLE_ROLES_PATH: '{{.PROVISIONER_REPO_PATH}}/roles'
   ANSIBLE_DEBUG: 0
@@ -73,6 +74,7 @@ tasks:
              ansible-playbook \
                  --tags '{{.ANSIBLE_TAGS}}' \
                  --inventory '{{.ANSIBLE_INVENTORY_SCRIPT_PATH}}' \
+                 --extra-vars '{{.ANSIBLE_VARIABLES_FILE_PATH}}' \
                  '{{.ANSIBLE_PLAYBOOKS_PATH}}/main.yaml'
         pkgx +openssh.com^{{.OPENSSH_VERSION}} \
              ssh-agent -k 2>&1 > /dev/null
