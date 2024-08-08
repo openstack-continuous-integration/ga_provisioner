@@ -1,4 +1,4 @@
-- name: Configure apt
+- name: configure-apt-mock.sh
   ansible.builtin.shell: |
     set -a
     REPO_PATH="/tmp/VCS/github.com/actions/runner-images"
@@ -8,22 +8,17 @@
     DEBIAN_FRONTEND='noninteractive'
     set +a
 
-    
-    /bin/sh "${BUILD_SCRIPTS_PATH}/configure-apt-mock.sh"
-    /bin/sh "${BUILD_SCRIPTS_PATH}/install-ms-repos.sh"
-    /bin/sh "${BUILD_SCRIPTS_PATH}/configure-apt-sources.sh"
-    /bin/sh "${BUILD_SCRIPTS_PATH}/configure-apt.sh"
-  
+    /bin/bash -e "${BUILD_SCRIPTS_PATH}/configure-apt-mock.sh"
   args:
-    executable: /bin/sh
+    executable: /bin/bash
   register: result
   ignore_errors: true
 
-- name: Configure apt STDOUT
+- name: configure-apt-mock.sh STDOUT
   debug:
     msg: "{{ result.stdout_lines }}"
 
-- name: Configure apt STDERR
+- name: configure-apt-mock.sh STDERR
   when: result.rc != 0
   fail:
     msg: "{{ result.stderr_lines }}"

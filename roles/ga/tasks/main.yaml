@@ -4,7 +4,11 @@
 - import_tasks: repo_clone.yaml
   tags: install
 
-- import_tasks: repo_scripts.yaml
+- import_tasks:
+  - configure-apt-mock.yaml
+  - install-ms-repos.yaml
+  - configure-apt-sources.yaml
+  - configure-apt.yaml
   tags: install
 
 - import_tasks: install_toolset_config.yaml
