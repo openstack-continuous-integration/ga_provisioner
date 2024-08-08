@@ -23,7 +23,7 @@
 - ansible.builtin.import_tasks: install_apt_vital.yaml
   tags: install
 
-- ansible.builtin.import_tasks: configure_limits.yaml
+- ansible.builtin.import_tasks: configure-limits.yaml
   tags: install
 
 - ansible.builtin.import_tasks: install_clang.yaml
