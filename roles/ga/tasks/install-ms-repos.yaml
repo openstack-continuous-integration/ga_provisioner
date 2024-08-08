@@ -14,14 +14,14 @@
   register: result
   ignore_errors: true
   #become: true  
-  async: 30
-  poll: 5
+  #async: 30
+  #poll: 5
 
 - name: install-ms-repos.sh STDOUT
   debug:
-    msg: "{{ async_result.stdout_lines }}"
+    msg: "{{ result.stdout_lines }}"
 
 - name: install-ms-repos.sh STDERR
   when: result.rc != 0
   fail:
-    msg: "{{ async_result.stderr_lines }}"
+    msg: "{{ result.stderr_lines }}"
