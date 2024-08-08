@@ -6,10 +6,11 @@
   tags: install
 - ansible.builtin.import_tasks: configure-apt.yaml
   tags: install
-- ansible.builtin.import_tasks: install-ms-repos.yaml
-  tags: install
 - ansible.builtin.import_tasks: configure-apt-sources.yaml
   tags: install
+- ansible.builtin.import_tasks: install-ms-repos.yaml
+  tags: install
+
 
 
 - ansible.builtin.import_tasks: install_toolset_config.yaml
