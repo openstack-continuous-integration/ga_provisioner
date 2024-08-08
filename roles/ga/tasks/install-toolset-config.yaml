@@ -1,4 +1,4 @@
 - name: Install the toolset file
   ansible.builtin.file:
     src: '{{ REPO_PATH }}/images/ubuntu/toolsets/toolset-2404.json'
-    dst: '{{ REPO_PATH }}/images/ubuntu/scripts/build/toolset.json'
+    path: '{{ REPO_PATH }}/images/ubuntu/scripts/build/toolset.json'
