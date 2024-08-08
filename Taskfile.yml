@@ -73,6 +73,7 @@ tasks:
         pkgx +ansible.com^{{.ANSIBLE_VERSION}} \
              ansible-playbook \
                  --verbose \
+                 --verbose \
                  --tags '{{.ANSIBLE_TAGS}}' \
                  --inventory '{{.ANSIBLE_INVENTORY_SCRIPT_PATH}}' \
                  --extra-vars '{{.ANSIBLE_VARIABLES_FILE_PATH}}' \
