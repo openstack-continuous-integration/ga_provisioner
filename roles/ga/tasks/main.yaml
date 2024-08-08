@@ -11,9 +11,7 @@
 - ansible.builtin.import_tasks: install-ms-repos.yaml
   tags: install
 
-
-
-- ansible.builtin.import_tasks: install_toolset_config.yaml
+- ansible.builtin.import_tasks: install-toolset-config.yaml
   tags: install
 
 - ansible.builtin.import_tasks: configure_image_data.yaml
