@@ -41,7 +41,7 @@
 - ansible.builtin.import_tasks: pkgx.yaml 
   tags: install
 
-- ansible.builtin.inport_tasks: install-terraform.yaml
+- ansible.builtin.import_tasks: install-terraform.yaml
   tags: install
 
 - ansible.builtin.import_tasks: install-packer.yaml
