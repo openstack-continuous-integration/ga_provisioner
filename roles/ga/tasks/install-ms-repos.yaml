@@ -12,3 +12,12 @@
     executable: /bin/bash
   register: result
   ignore_errors: true
+
+- name: install-ms-repos.sh STDOUT
+  debug:
+    msg: "{{ result.stdout_lines }}"
+
+- name: install-ms-repos.sh STDERR
+  when: result.rc != 0
+  fail:
+    msg: "{{ result.stderr_lines }}"
