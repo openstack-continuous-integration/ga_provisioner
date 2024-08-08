@@ -13,6 +13,9 @@
     executable: /bin/bash
   register: result
   ignore_errors: true
+  become: true  
+  async: 30
+  poll: 5
 
 - name: install-ms-repos.sh STDOUT
   debug:
