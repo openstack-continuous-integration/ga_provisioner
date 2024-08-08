@@ -7,7 +7,7 @@
     INSTALLER_SCRIPT_FOLDER="${REPO_PATH}/images/ubuntu/scripts/build"
     DEBIAN_FRONTEND='noninteractive'
     set +a
-    /bin/bash -e "${BUILD_SCRIPTS_PATH}/install-ms-repos.sh"
+    sudo bash -e "${BUILD_SCRIPTS_PATH}/install-ms-repos.sh"
   args:
     executable: /bin/bash
   register: result
