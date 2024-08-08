@@ -1,4 +1,4 @@
-- import_tasks: create_image_folder.yaml
+- import_tasks: create_folders.yaml
   tags: install
 
 - import_tasks: repo_clone.yaml
