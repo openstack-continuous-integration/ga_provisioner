@@ -8,12 +8,12 @@
     DEBIAN_FRONTEND='noninteractive'
     set +a
 
-    /bin/bash -xeu "${BUILD_SCRIPTS_PATH}/install-ms-repos.sh"
+    /bin/bash -e "${BUILD_SCRIPTS_PATH}/install-ms-repos.sh"
   args:
     executable: /bin/bash
   register: result
   ignore_errors: true
-  become: true  
+  #become: true  
   async: 30
   poll: 5
 
