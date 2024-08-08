@@ -1,0 +1,16 @@
+- name: Install system-wide terraform version
+  ansible.builtin.shell: |
+    pkgx install terraform
+  args:
+    executable: /bin/bash
+  register: result
+  ignore_errors: true
+
+- name: Install system-wide terraform versionSTDOUT
+  debug:
+    msg: "{{ result.stdout_lines }}"
+
+- name: Install system-wide terraform version STDERR
+  when: result.rc != 0
+  fail:
+    msg: "{{ result.stderr_lines }}"

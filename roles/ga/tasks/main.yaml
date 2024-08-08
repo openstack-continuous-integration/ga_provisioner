@@ -26,18 +26,23 @@
 - ansible.builtin.import_tasks: configure-limits.yaml
   tags: install
 
-- ansible.builtin.import_tasks: install_clang.yaml
-  tags: install
+#- ansible.builtin.import_tasks: install_clang.yaml
+#  tags: install
 
-- ansible.builtin.import_tasks: install_ruby.yaml
-  tags: install
+#- ansible.builtin.import_tasks: install_ruby.yaml
+#  tags: install
 
-- ansible.builtin.import_tasks: install_git.yaml
-  tags: install
+#- ansible.builtin.import_tasks: install_git.yaml
+#  tags: install
 
-- ansible.builtin.import_tasks: install_docker.yaml
-  tags: install
+#- ansible.builtin.import_tasks: install_docker.yaml
+#  tags: install
 
 - ansible.builtin.import_tasks: pkgx.yaml 
   tags: install
 
+- ansible.builtin.inport_tasks: install-terraform.yaml
+  tags: install
+
+- ansible.builtin.import_tasks: install-packer.yaml
+  tags: install

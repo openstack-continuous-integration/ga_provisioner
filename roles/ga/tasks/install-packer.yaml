@@ -1,0 +1,16 @@
+- name: Install system-wide packer version
+  ansible.builtin.shell: |
+    pkgx install packer
+  args:
+    executable: /bin/bash
+  register: result
+  ignore_errors: true
+
+- name: Install system-wide packer versionSTDOUT
+  debug:
+    msg: "{{ result.stdout_lines }}"
+
+- name: Install system-wide packer version STDERR
+  when: result.rc != 0
+  fail:
+    msg: "{{ result.stderr_lines }}"
