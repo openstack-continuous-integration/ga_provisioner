@@ -72,6 +72,7 @@ tasks:
              ssh-add -q "{{.CONSTRUCTOR_SSH_KEY_PATH}}" 2>&1 > /dev/null
         pkgx +ansible.com^{{.ANSIBLE_VERSION}} \
              ansible-playbook \
+                 --verbose \
                  --tags '{{.ANSIBLE_TAGS}}' \
                  --inventory '{{.ANSIBLE_INVENTORY_SCRIPT_PATH}}' \
                  --extra-vars '{{.ANSIBLE_VARIABLES_FILE_PATH}}' \
@@ -105,6 +106,7 @@ tasks:
              ssh-add -q "{{.CONSTRUCTOR_SSH_KEY_PATH}}" 2>&1 > /dev/null
         pkgx +ansible.com^{{.ANSIBLE_VERSION}} \
              ansible-playbook \
+                 --verbose \
                  --tags '{{.ANSIBLE_TAGS}}' \
                  --inventory '{{.ANSIBLE_INVENTORY_SCRIPT_PATH}}' \
                  '{{.ANSIBLE_PLAYBOOKS_PATH}}/main.yaml'
